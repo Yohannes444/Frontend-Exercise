@@ -3,7 +3,9 @@ export class CreateUserDto {
   lastName: string;
   email: string;
   userName: string;
+  password: string;
+  confirmPassword: string;
   address: string;
-  profilePic?: string;
   isBuyer: boolean;
+  profilePic?: string;
 }

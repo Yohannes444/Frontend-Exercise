@@ -12,26 +12,25 @@ export class User {
   lastName: string;
 
   @Prop()
-  email: string
+  email: string;
   
   @Prop()
   userName: string;
 
   @Prop()
+  password: string;
+
+  @Prop()
+  confirmPassword: string;
+
+  @Prop()
   address: string;
 
   @Prop()
-  profilePic: string; // Optional field
-
-  @Prop()
   isBuyer: boolean;
- 
-  @Prop()
-  name: string;
-
 
   @Prop()
-  password: string;
+  profilePic: string; // Optional field
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

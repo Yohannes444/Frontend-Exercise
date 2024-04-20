@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const createUser = (name) => {
-  return axios.post("http://localhost:5453/users", { name });
+const createUser = (payload) => {
+  console.log(payload)
+
+  return axios.post("http://localhost:5453/users", payload);
 };
 
 export default createUser;
