@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -25,18 +17,20 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  // @Get(":id")
-  // findOne(@Param("id") id: string) {
-  //   return this.usersService.findOne(id);
-  // }
+  @Post("login")
+  async login(@Body() loginData: { email: string; password: string }) {
+    const user = await this.usersService.findByEmail(loginData.email);
+    if (!user) {
+      return { success: false, message: "User not found" };
+    }
 
-  // @Patch(":id")
-  // update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
-  //   return this.usersService.update(id, updateUserDto);
-  // }
+    // Check if passwords match (without encryption)
+    if (user.password !== loginData.password) {
+      return { success: false, message: "Incorrect password" };
+    }
 
-  // @Delete(":id")
-  // remove(@Param("id") id: string) {
-  //   return this.usersService.remove(id);
-  // }
+    // If everything is correct, return user details (excluding sensitive data)
+    const { password, ...userDetails } = user;
+    return { success: true, user: userDetails };
+  }
 }

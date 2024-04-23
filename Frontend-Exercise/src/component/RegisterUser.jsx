@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createUser } from '../redux/actions/createUser';
+import { GoogleApiWrapper } from 'google-maps-react';
 
-const RegisterUser = () => {
+const RegisterUser = ({ google }) => {
   const dispatch = useDispatch();
 
   const [formDataFirstPage, setFormDataFirstPage] = useState({
@@ -22,6 +23,18 @@ const RegisterUser = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places`;
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   const handleInputChangeFirstPage = (e) => {
     const { name, value } = e.target;
     setFormDataFirstPage({
@@ -40,15 +53,6 @@ const RegisterUser = () => {
   
   const handlePreviousPage = () => {
     setCurrentPage(1);
-  };
-
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setFormDataSecondPage({
-      ...formDataSecondPage,
-      profilePic: file
-    });
   };
 
   const handleNextPage = () => {
@@ -112,7 +116,7 @@ const RegisterUser = () => {
             </div>
             <div>
               <label htmlFor="address" className="text-sm font-medium text-gray-700">Address</label>
-              <input type="text" id="address" name="address" value={formDataSecondPage.address} onChange={handleInputChangeSecondPage} placeholder="Enter your address" required className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
+              <input type="text" id="address" name="address" value={formDataSecondPage.address} onChange={handleInputChangeSecondPage} placeholder="Enter your address (e.g., Addis Ababa, Ethiopia)" required className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" />
             </div>
             <div>
               <label htmlFor="isBuyer" className="text-sm font-medium text-gray-700">Are you a buyer?</label>
@@ -135,4 +139,6 @@ const RegisterUser = () => {
   );
 };
 
-export default RegisterUser;
+export default GoogleApiWrapper({
+  apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+})(RegisterUser);
