@@ -1,3 +1,3 @@
 import axios from "axios";
-
-export default () => axios.get("http://localhost:5453/users");
+// Endpoint: `GET /fetch/dummy/user-v2`
+export default () => axios.get(`http://localhost:3000/api/users/fetch/dummy/user-v2`);

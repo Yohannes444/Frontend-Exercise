@@ -1,21 +1,22 @@
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import './App.css'
+import RegisterUser from './component/RegisterUser.jsx';
+import GetAllUsers from './component/getuser.jsx';
+import LoginForm from './component/loginForm.jsx';
+import EditUserForm from './component/editUserForm.jsx'
 
-import RegisterUser from './component/RegisterUser.jsx'
-import GetAllUsers from './component/getuser.jsx'
 function App() {
-  
   return (
-    <>
-        <RegisterUser/>
-        <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-
-        <GetAllUsers/>
-
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterUser />} />
+        <Route path="/users" element={<GetAllUsers />} />
+        <Route path='/editUser' element={<EditUserForm/>}/>
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

@@ -5,6 +5,7 @@ import {
   CREATE_USER_START,
   CREATE_USER_SUCCESS,
   CREATE_USER_FAILURE,
+  
 } from "../actionTypes";
 
 const initialState = {
@@ -34,6 +35,7 @@ const reducers = (state = initialState, action) => {
     case CREATE_USER_FAILURE: {
       return { ...state, isLoading: false, error: action.payload };
     }
+  
     default: {
       return state;
     }
