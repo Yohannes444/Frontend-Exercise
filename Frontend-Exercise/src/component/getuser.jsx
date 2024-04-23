@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsers } from '../redux/actions/getUsers'; // Import your getUser action
+import { Link } from 'react-router-dom';
 
 const UserCard = ({ user }) => {
   return (
@@ -21,6 +22,9 @@ const UserCard = ({ user }) => {
           Is Buyer: {user.isBuyer ? 'Yes' : 'No'}
         </p>
       </div>
+      <Link to="/editUser" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+  edit
+</Link>
     </div>
   );
 };

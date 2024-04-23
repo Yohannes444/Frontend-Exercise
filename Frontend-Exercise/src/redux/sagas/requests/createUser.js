@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const createUser = (payload) => {
-  console.log(payload)
+  console.log("payload",payload)
 
-  return axios.post("http://localhost:5453/users", payload);
+// Endpoint: `POST /register/v2`
+  return axios.post(`http://localhost:3000/api/users/register/v2`, payload);
 };
 
 export default createUser;

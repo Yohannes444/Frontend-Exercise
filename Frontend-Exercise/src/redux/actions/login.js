@@ -1,16 +1,16 @@
-import {
-    LOGIN_USERS_FAILURE,
-    LOGIN_USERS_START,
-    LOGIN_USERS_SUCCESS,
-  } from "../actionTypes";
+
+import {  LOGIN_USER_START,LOGIN_USER_FAILURE } from "../actionTypes";
+import { LOGIN_USER_SUCCESS } from "../actionTypes";
+
   
-  export const loginUsers = () => ({ type: LOGIN_USERS_START });
-  export const loginUsersSuccess = (payload) => ({
-    type: LOGIN_USERS_SUCCESS,
+  export const loginUsers = (payload) =>({ type: LOGIN_USER_START ,payload});
+  export const loginUsersSuccess = (payload) =>  ({
+    type: LOGIN_USER_SUCCESS ,
     payload,
   });
+
   export const loginUsersFailure = (payload) => ({
-    type: LOGIN_USERS_FAILURE,
+    type: LOGIN_USER_FAILURE ,
     payload,
   });
   

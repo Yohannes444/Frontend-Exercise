@@ -6,8 +6,8 @@ const options = { cors: true };
 export const app = NestFactory.create(AppModule, options);
 
 async function bootstrap() {
-  (await app).listen(5453, () => {
-    console.log(`Server running at: http://localhost:${5453}`);
+  (await app).listen(3000, () => {
+    console.log(`Server running at: http://localhost:${3000}`);
   });
 }
 bootstrap();

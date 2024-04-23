@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUsers } from '../redux/actions/login';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -12,11 +19,18 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // You can perform login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
+  const handleSubmit = () => {
+    const dispatch = useDispatch();
+
+    var data={email:email,password:password}
+    dispatch(loginUsers(data));
+
+    const user= useSelector(state => state.users)
+    console.log("user: ",user)
+    setEmail('')
+    setPassword('')
+    navigate('/users');
+
     // For a real application, you would likely send the login data to a server for authentication
   };
 
@@ -71,6 +85,14 @@ const LoginForm = () => {
             </button>
           </div>
         </form>
+        <Link to="/register" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+  Sign Up
+</Link>
+<Link to="/users" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+  Users
+</Link>
+
+
       </div>
     </div>
   );

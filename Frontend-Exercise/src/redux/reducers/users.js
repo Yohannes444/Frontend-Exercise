@@ -5,9 +5,7 @@ import {
   CREATE_USER_START,
   CREATE_USER_SUCCESS,
   CREATE_USER_FAILURE,
-  LOGIN_USER_START,
-  LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILURE,
+  
 } from "../actionTypes";
 
 const initialState = {
@@ -37,16 +35,7 @@ const reducers = (state = initialState, action) => {
     case CREATE_USER_FAILURE: {
       return { ...state, isLoading: false, error: action.payload };
     }
-    case LOGIN_USER_START: {
-      return { ...state, isLoading: true };
-    }
-    case LOGIN_USER_SUCCESS: {
-      const updatedUsers = [...state.data, action.payload];
-      return { ...state, isLoading: false, data: updatedUsers };
-    }
-    case LOGIN_USER_FAILURE: {
-      return { ...state, isLoading: false, error: action.payload };
-    }
+  
     default: {
       return state;
     }
