@@ -1,19 +1,20 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import RegisterUser from './component/RegisterUser.jsx';
 import GetAllUsers from './component/getuser.jsx';
 import LoginForm from './component/loginForm.jsx';
-import EditUserForm from './component/editUserForm.jsx'
 
 function App() {
+  const user = useSelector(state => state.user.user.success);
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LoginForm />} />
+        <Route path="/" element={user ? <Navigate to="/users" /> : <LoginForm />} />
         <Route path="/register" element={<RegisterUser />} />
         <Route path="/users" element={<GetAllUsers />} />
-        <Route path='/editUser' element={<EditUserForm/>}/>
       </Routes>
     </Router>
   );

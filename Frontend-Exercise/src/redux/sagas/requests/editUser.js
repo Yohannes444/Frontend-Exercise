@@ -16,7 +16,7 @@ const editUser = (payload) => {
   const Id = payload._id;
 
   // Endpoint: `POST /users/profile/:id`
-  return axios.post(`http://localhost:3000/api/users/profile/${Id}`, data);
+  return axios.put(`http://localhost:3000/api/users/profile/${Id}`, data);
 };
 
 export default editUser;

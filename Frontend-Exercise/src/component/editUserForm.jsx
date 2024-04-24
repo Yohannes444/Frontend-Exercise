@@ -1,40 +1,24 @@
 // EditUserForm.js
 
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { editUsers } from '../redux/actions/editUser'; // Assuming you have this action defined
-import { useSelector } from 'react-redux';
+import { editUsers } from '../redux/actions/editUser';
+import { getUsers } from '../redux/actions/getUsers'; // Import your getUser action
 
-const EditUserForm = () => {
+const EditUserForm = ({ user,closeEdit }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    userName: '',
-    password: '',
-    confirmPassword: "",
-    address: '',
-    isBuyer: '',
-    profilePic: '',
+    _id:user._id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    userName: user.userName,
+    password: user.password,
+    confirmPassword: user.confirmPassword,
+    address: user.address,
+    isBuyer: user.isBuyer,
+    profilePic: user.profilePic,
   });
-
-  useEffect(() => {
-    const user = useSelector(state => state.user.user);
-    if (user !== null) { // Access users from Redux state
-        setFormData({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            userName: user.userName,
-            password: user.password,
-            confirmPassword: user.confirmPassword,
-            address: user.address,
-            isBuyer: user.isBuyer,
-            profilePic: user.profilePic,
-        });
-    }
-}, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -45,9 +29,24 @@ const EditUserForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = useSelector(state => state.user.user);
+    console.log(formData)
+    dispatch(editUsers(formData)); // Assuming this is successful
+    closeEdit()
+    dispatch(getUsers()); // Dispatch the getUser action on component mount
 
-    dispatch(editUsers(user.id, formData));
+    // Reset form data after submission
+    setFormData({
+      _id: user._id,
+      firstName: '',
+      lastName: '',
+      email: '',
+      userName: '',
+      password: '',
+      confirmPassword: '',
+      address: '',
+      isBuyer: false,
+      profilePic: '',
+    });
   };
 
   return (

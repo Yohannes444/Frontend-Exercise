@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -19,19 +19,14 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = () => {
-    const dispatch = useDispatch();
-
-    var data={email:email,password:password}
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+  
+    var data = { email: email, password: password };
     dispatch(loginUsers(data));
-
-    const user= useSelector(state => state.users)
-    console.log("user: ",user)
-    setEmail('')
-    setPassword('')
-    navigate('/users');
-
-    // For a real application, you would likely send the login data to a server for authentication
+  
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -88,9 +83,7 @@ const LoginForm = () => {
         <Link to="/register" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
   Sign Up
 </Link>
-<Link to="/users" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-  Users
-</Link>
+
 
 
       </div>

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createUser } from '../redux/actions/createUser';
 import { Link } from 'react-router-dom';
 
-const RegisterUser = ({ google }) => {
+const RegisterUser = () => {
   const dispatch = useDispatch();
 
   const [formDataFirstPage, setFormDataFirstPage] = useState({
@@ -23,17 +23,7 @@ const RegisterUser = ({ google }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places`;
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
 
   const handleInputChangeFirstPage = (e) => {
     const { name, value } = e.target;
@@ -141,6 +131,4 @@ const RegisterUser = ({ google }) => {
   );
 };
 
-export default GoogleApiWrapper({
-  apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-})(RegisterUser);
+export default RegisterUser;

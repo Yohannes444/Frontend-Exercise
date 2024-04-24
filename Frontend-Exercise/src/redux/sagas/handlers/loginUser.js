@@ -1,12 +1,16 @@
 import { loginUsersFailure, loginUsersSuccess } from "../../actions/login";
 import { call, put } from "redux-saga/effects";
-import userLogin from "../requests/loginUser";
+import userLoginRequest from "../requests/loginUser";
 
 export function* userLoginHandler(action) {
-  try {
-    const response = yield call(userLogin,action.payload);
-    yield put(loginUsersSuccess(response.data));
-  } catch (error) {
-    yield put(loginUsersFailure(error.message));
+  
+    const response = yield call(userLoginRequest,action.payload);
+    console.log("response form loginHandler",response)
+    if(response.statusText != 'Created'){
+      yield put(loginUsersFailure(error.message));
+
+    }else{
+     yield put(loginUsersSuccess(response.data));
   }
+  
 }

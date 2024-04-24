@@ -2,11 +2,10 @@ import axios from "axios";
 
 
 const userLogin = async(payload) => {
+  console.log("payload from:requser: ",payload)
 // Endpoint: `POST /login`
-  const login=await axios.post(`http://localhost:3000/api/users/login`, payload);
-  if (login.status === 200){
-    
-  }
+  return await axios.post(`http://localhost:3000/api/users/login`, payload);
+  
 };
 
 export default userLogin;

@@ -6,7 +6,11 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 @Controller("api/users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
+  
+  @Put('profile/:id') // Endpoint to edit a user by ID
+  async updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateUser(id, updateUserDto); // Delegate the update operation to the UserService
+  }
   @Post('register/v2')
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
@@ -33,8 +37,5 @@ export class UsersController {
     const { password, ...userDetails } = user;
     return { success: true, user: userDetails };
   }
-  @Put('profle/:id') // Endpoint to edit a user by ID
-  async updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.updateUser(id, updateUserDto); // Delegate the update operation to the UserService
-  }
+  
 }
